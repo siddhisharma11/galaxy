@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Project</title>
+    <link rel="stylesheet" href="loginpage.css">
+    <script src="https://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header
+  <div>
+    <nav>
+      <div class="logo"> <h1 style="font-size: 20px;"> Login </h1> </div>
+      <div class="menu">
+        <!-- <a href="#" style="font-size: 20px;">Main Page</a> -->
+        <a href="home.html" target="_blank">Home</a>
+      </div>
+    </nav>
+  </div>
+  <div class="container">
+    
+    <form id="project-form">
+      <i class="fas fa-paper-plane"></i>
+
+      <div class="input-group">
+        <label>Login Username</label>
+        <input type="text" placeholder="Enter your name" required>
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" placeholder="Enter password" required>
+      </div>
+
+      <!-- <div class="input-group">
+        <label for="start-date">Start Date:</label>
+        <input type="date" id="start-date" name="start-date" placeholder="enterdate" required>
+        <span id="error-message" class="error"></span>
+      </div>  -->
+
+      <!-- <div class="input-group">
+        <label>Status</label>
+        <input type="text" value="In Progress" name="Status" readonly>
+       
+        
+        
+      </div>   -->
+      
+      
+     <!-- <legend style="color: #00b894; padding: 5px">Testers</legend>
+        <input type="checkbox" id="tester1" name="tester"  value="Tester 1"> Tester 1<br>
+        <input type="checkbox" id="tester2" name="tester" value="Tester 2"> Tester 2<br>
+      
+
+    
+        <legend style="color: #00b894; padding: 5px;">Developers (Select only one):</legend>
+        <input type="radio" id="developer1" name="developer" value="Developer 1" > Developer 1<br>
+        <input type="radio" id="developer2" name="developer" value="Developer 2"> Developer 2<br>
+       -->
+      <!-- <div class="input-group">
+        <label>Description</label>
+        <textarea rows="5" placeholder="Enter project Description"></textarea>
+      </div> -->
+<div class="inner" >
+  
+    <button type="submit">Create New Account</button>
+  
+    <button type="submit">Submit</button>
+
+
+
+</div>
+<div style="float: right;">
+    <span class="psw">Forgot <a href="#">password?</a></span>
+</div>
+   
+   
+  </form>
+
+  
+  </div>
+</header>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("project-form");
+  const startDateInput = document.getElementById("start-date");
+  const errorMessage = document.getElementById("error-message");
+  const testerRadios = document.querySelectorAll('input[name="tester"]');
+  const developerRadios = document.querySelectorAll('input[name="developer"]');
+  
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the form from submitting
+
+    const selectedDate = new Date(startDateInput.value);
+    const currentDate = new Date();
+    const minDate = new Date(currentDate);
+    minDate.setDate(currentDate.getDate() + 2); // Minimum date is current date + 2 days
+
+    if (selectedDate < minDate) {
+      errorMessage.textContent = "Start date must be at least 2 days in the future.";
+    } else {
+      // Handle the form submission here (e.g., send data to the server)
+      errorMessage.textContent = ""; // Clear any previous error message
+      // You can submit the form or perform any other action here
+      // Example: form.submit();
+    }
+    // Validate tester selection
+    const selectedTesters = Array.from(testerRadios).filter(radio => radio.checked);
+      if (selectedTesters.length < 1) {
+        errorMessage.textContent = "Select at least one tester.";
+      }
+
+      // Validate developer selection
+      const selectedDevelopers = Array.from(developerRadios).filter(radio => radio.checked);
+      if (selectedDevelopers.length !== 1) {
+        errorMessage.textContent = "Select exactly one developer.";
+      }
+
+      if (selectedTesters.length >= 1 && selectedDevelopers.length === 1) {
+        // Handle the form submission here (e.g., send data to the server)
+        // Example: form.submit();
+      }
+
+      // Collect form data
+      const projectName = form.querySelector('input[type="text"]').value;
+      // const projectStatus = form.querySelector('input[type="text"]').value;
+      const description = form.querySelector('textarea').value;
+
+      // Create a formatted message
+      const message = `
+        Project Name: ${projectName}
+        Testers: ${selectedTesters.map(tester => tester.value).join(", ")}
+        Developer: ${selectedDevelopers[0].value}
+        Description: ${description}
+      `;
+
+      // Display the message in an alert
+      alert("Form Details:\n" + message+"  Status :In Progress");
+    
+
+
+  });
+});
+
+
+
+
+
+</script>
+   
+</body>
+</html>
